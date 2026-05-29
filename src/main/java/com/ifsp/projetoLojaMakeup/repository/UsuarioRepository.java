@@ -39,9 +39,34 @@ public class UsuarioRepository {
     @Transactional
     public Produto findById(Long id){
         String sql = "SELECT * FROM produtos WHERE id = :id";
-        Query q = em.createNativeQuery(sql, Produto.class);
-        q.setParameter("id", id);
-        Produto produto = (Produto) q.getSingleResult();
+        Query query = em.createNativeQuery(sql, Produto.class);
+        query.setParameter("id", id);
+        Produto produto = (Produto) query.getSingleResult();
         return produto;
+    }
+
+    public void atualizar(Usuario usuario){
+
+        String sql = "UPDATE usuarios SET nome = :nome, email = :email, telefone = :telefone, senha = :senha WHERE id = :id";
+        Query query = em.createNativeQuery(sql);
+
+        query.setParameter("id", usuario.getId());
+        query.setParameter("nome", usuario.getNome());
+        query.setParameter("email", usuario.getEmail());
+        query.setParameter("telefone", usuario.getTelefone());
+        query.setParameter("senha", usuario.getSenha());
+
+        query.executeUpdate();
+    }
+
+    @Transactional
+    public void deletarUsuario(Long id){
+
+        String sql = "DELETE FROM usuarios WHERE id = :id";
+
+        Query query = em.createNativeQuery(sql);
+        query.setParameter("id", id);
+
+        query.executeUpdate();
     }
 }

@@ -42,4 +42,24 @@ public class ProdutoRepository {
         Produto produto = (Produto) q.getSingleResult();
         return produto;
     }
+
+    @Transactional
+    public void update(Produto produto){
+        String sql = "UPDATE produtos SET titulo = :titulo, descricao = :descricao, preco = :preco, img = :img WHERE id = :id";
+        Query query =em.createNativeQuery(sql);
+        query.setParameter("id", produto.getId());
+        query.setParameter("titulo",produto.getTitulo());
+        query.setParameter("descricao",produto.getDescricao());
+        query.setParameter("preco", produto.getPreco());
+        query.setParameter("img",produto.getImg());
+        query.executeUpdate();
+    }
+
+    @Transactional
+    public void delete(long id){
+        String sql = "DELETE FROM produtos WHERE id = :id";
+        Query query = em.createNativeQuery(sql);
+        query.setParameter("id", id);
+        query.executeUpdate();
+    }
 }
