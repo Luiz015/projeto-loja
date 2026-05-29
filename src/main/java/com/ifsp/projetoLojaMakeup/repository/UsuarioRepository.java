@@ -30,19 +30,20 @@ public class UsuarioRepository {
 
     @Transactional
     public List<Usuario> findAll() {
-    String sql = "SELECT * FROM usuarios";
-    Query query = em.createNativeQuery(sql, Produto.class);
-    List<Usuario> usuarios = query.getResultList();
-    return usuarios;
+        String sql = "SELECT * FROM usuarios";
+        Query query = em.createNativeQuery(sql, Usuario.class);
+        List<Usuario> usuarios = query.getResultList();
+        return usuarios;
     }
     
     @Transactional
-    public Produto findById(Long id){
-        String sql = "SELECT * FROM produtos WHERE id = :id";
-        Query query = em.createNativeQuery(sql, Produto.class);
+    public Usuario findById(Long id){
+        String sql = "SELECT * FROM usuarios WHERE id = :id";
+        Query query = em.createNativeQuery(sql, Usuario.class);
         query.setParameter("id", id);
-        Produto produto = (Produto) query.getSingleResult();
-        return produto;
+
+        Usuario usuario = (Usuario) query.getSingleResult();
+        return usuario;
     }
 
     public void atualizar(Usuario usuario){
