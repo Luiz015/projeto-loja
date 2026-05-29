@@ -10,7 +10,7 @@ import com.ifsp.projetoLojaMakeup.model.Produto;
 import com.ifsp.projetoLojaMakeup.repository.ProdutoRepository;
 
 @Service
-public abstract class ProdutoService {
+public class ProdutoService {
     
     @Autowired
     private ProdutoRepository produtoRepository;
