@@ -34,4 +34,9 @@ public class ProdutoService {
     public void deletar(Long id){
         produtoRepository.delete(id);
     }
+
+    public List<Produto> buscarPorTitulo(String titulo){
+        List<Produto> produtos = produtoRepository.buscarPorTitulo(titulo);
+        return produtos;
+    }
 }
