@@ -62,4 +62,18 @@ public class ProdutoRepository {
         query.setParameter("id", id);
         query.executeUpdate();
     }
+
+    @Transactional
+    public List<Produto> buscarPorTitulo(String titulo){
+
+        String sql = "SELECT * FROM produtos WHERE titulo LIKE :titulo";
+
+        Query query = em.createNativeQuery(sql, Produto.class);
+
+        query.setParameter("titulo", "%" + titulo + "%");
+
+        List<Produto> produtos = query.getResultList();
+
+        return produtos;
+    }
 }
