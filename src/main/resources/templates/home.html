@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Loja Makeup</title>
+</head>
+<body>
+
+    <header>
+
+        <h1>Loja Makeup</h1>
+
+        <form action="/buscar" method="get">
+            <input
+                type="text"
+                name="titulo"
+                placeholder="Buscar produto">
+
+            <button type="submit">
+                Buscar
+            </button>
+        </form>
+
+        <a href="/login">Login</a>
+        <a href="/cadastro">Cadastro</a>
+
+    </header>
+
+    <main>
+
+        <h2>Produtos</h2>
+
+        <div th:each="produto : ${lista}">
+
+            <img
+                th:src="@{'/img/' + ${produto.img}}"
+                width="200">
+
+            <h3 th:text="${produto.titulo}"></h3>
+
+            <p>
+                R$
+                <span th:text="${produto.preco}"></span>
+            </p>
+
+            <a th:href="@{'/produto/' + ${produto.id}}">
+                Ver detalhes
+            </a>
+
+            <hr>
+
+        </div>
+
+    </main>
+
+</body>
+</html>
