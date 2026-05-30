@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.ifsp.projetoLojaMakeup.model.Produto;
+
 import com.ifsp.projetoLojaMakeup.model.Usuario;
 
 import jakarta.persistence.EntityManager;
@@ -19,12 +19,13 @@ public class UsuarioRepository {
 
     @Transactional
     public void save(Usuario usuario){
-        String sql = "INSERT INTO usuarios (nome, email, telefone, senha) VALUES (:nome, :email, :telefone, :senha)";
+        String sql = "INSERT INTO usuarios (nome, email, telefone, senha, perfil) VALUES (:nome, :email, :telefone, :senha, :perfil)";
         Query query = em.createNativeQuery(sql);
         query.setParameter("nome", usuario.getNome());
         query.setParameter("email", usuario.getEmail());
         query.setParameter("telefone", usuario.getTelefone());
         query.setParameter("senha", usuario.getSenha());
+        query.setParameter("perfil", usuario.getPerfil());
         query.executeUpdate();
     }
 
@@ -46,9 +47,10 @@ public class UsuarioRepository {
         return usuario;
     }
 
+    @Transactional
     public void atualizar(Usuario usuario){
 
-        String sql = "UPDATE usuarios SET nome = :nome, email = :email, telefone = :telefone, senha = :senha WHERE id = :id";
+        String sql = "UPDATE usuarios SET nome = :nome, email = :email, telefone = :telefone, senha = :senha, perfil = :perfil WHERE id = :id";
         Query query = em.createNativeQuery(sql);
 
         query.setParameter("id", usuario.getId());
@@ -56,6 +58,7 @@ public class UsuarioRepository {
         query.setParameter("email", usuario.getEmail());
         query.setParameter("telefone", usuario.getTelefone());
         query.setParameter("senha", usuario.getSenha());
+        query.setParameter("perfil", usuario.getPerfil());
 
         query.executeUpdate();
     }

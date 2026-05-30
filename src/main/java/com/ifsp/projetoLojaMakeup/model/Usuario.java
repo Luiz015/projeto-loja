@@ -15,11 +15,12 @@ public class Usuario {
 
     }
 
-    public Usuario(String nome, String email, String telefone, String senha){
+    public Usuario(String nome, String email, String telefone, String senha, String perfil){
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
         this.senha = senha;
+        this.perfil = perfil;
     }
 
     @Id
@@ -78,4 +79,17 @@ public class Usuario {
     public void setSenha(String senha){
         this.senha = senha;
     }
+
+    //perfil(adm ou cliene)
+    @Column(name = "perfil")
+    private String perfil;
+
+    public String getPerfil(){
+        return perfil;
+    }
+
+    public void setPerfil(String perfil){
+        this.perfil = perfil;
+    }
+
 }
