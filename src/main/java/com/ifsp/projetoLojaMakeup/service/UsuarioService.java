@@ -32,4 +32,8 @@ public class UsuarioService {
     public void deletar(Long id){
         usuarioRepository.deletarUsuario(id);
     }
+
+    public Usuario buscarPorEmail(String email){
+        return usuarioRepository.findByEmail(email);
+    }
 }

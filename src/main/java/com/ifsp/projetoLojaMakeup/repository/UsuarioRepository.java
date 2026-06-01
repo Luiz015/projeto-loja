@@ -73,4 +73,14 @@ public class UsuarioRepository {
 
         query.executeUpdate();
     }
+
+    @Transactional
+    public Usuario findByEmail(String email){
+        String sql = "SELECT * FROM usuarios WHERE email = :email";
+        Query query = em.createNativeQuery(sql, Usuario.class);
+        query.setParameter("email", email);
+
+        Usuario usuario = (Usuario) query.getSingleResult();
+        return usuario;
+    }
 }
