@@ -21,7 +21,7 @@ public class UsuarioController {
     //abre form cadastro
     @GetMapping("/cadastro")
     public String cadastroFormulario(){
-        return "cadaastro";
+        return "cadastro";
     }
 
     //formulario
