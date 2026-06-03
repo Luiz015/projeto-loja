@@ -6,20 +6,52 @@
 </head>
 <body>
 
-    <a href="/">Voltar</a>
+    <div class="container-produto">
 
-    <img
-        th:src="@{'/img/' + ${produto.img}}"
-        width="300">
+        <div class="voltar">
 
-    <h2 th:text="${produto.titulo}"></h2>
+            <a href="/">
+                Voltar
+            </a>
 
-    <p>
-        R$
-        <span th:text="${produto.preco}"></span>
-    </p>
+        </div>
 
-    <p th:text="${produto.descricao}"></p>
+        <div class="produto-detalhe">
+
+            <div class="produto-imagem">
+
+                <img
+                    th:src="@{'/img/' + ${produto.img}}"
+                    width="300">
+
+            </div>
+
+            <div class="produto-info">
+
+                <h2
+                    class="produto-titulo"
+                    th:text="${produto.titulo}">
+                </h2>
+
+                <p class="produto-preco">
+
+                    R$
+                    <span
+                        th:text="${produto.preco}">
+                    </span>
+
+                </p>
+
+                <div
+                    class="produto-descricao"
+                    th:text="${produto.descricao}">
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </body>
 </html>

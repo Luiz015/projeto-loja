@@ -5,44 +5,73 @@
 </head>
 <body>
 
-    <h1>Novo Produto</h1>
+    <div class="container-form">
 
-    <form action="/admin/produto/salvar" method="post">
+        <div class="card-form">
 
-        <input
-            type="text"
-            name="titulo"
-            placeholder="Título">
+            <h1>
+                Novo Produto
+            </h1>
 
-        <br><br>
+            <form
+                class="form-produto"
+                action="/admin/produto/salvar"
+                method="post">
 
-        <textarea
-            name="descricao"
-            placeholder="Descrição">
-        </textarea>
+                <div class="campo">
 
-        <br><br>
+                    <label>Título</label>
 
-        <input
-            type="number"
-            step="0.01"
-            name="preco"
-            placeholder="Preço">
+                    <input
+                        type="text"
+                        name="titulo">
 
-        <br><br>
+                </div>
 
-        <input
-            type="text"
-            name="img"
-            placeholder="Imagem">
+                <div class="campo">
 
-        <br><br>
+                    <label>Descrição</label>
 
-        <button type="submit">
-            Salvar
-        </button>
+                    <textarea
+                        name="descricao">
+                    </textarea>
 
-    </form>
+                </div>
+
+                <div class="campo">
+
+                    <label>Preço</label>
+
+                    <input
+                        type="number"
+                        step="0.01"
+                        name="preco">
+
+                </div>
+
+                <div class="campo">
+
+                    <label>Imagem</label>
+
+                    <input
+                        type="text"
+                        name="img">
+
+                </div>
+
+                <button
+                    class="btn-salvar"
+                    type="submit">
+
+                    Salvar
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
 
 </body>
 </html>

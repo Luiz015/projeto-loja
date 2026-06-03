@@ -6,71 +6,105 @@
 </head>
 <body>
 
-    <h1>Editar Usuário</h1>
+    <div class="container-form">
 
-    <a href="/admin/usuarios">
-        Voltar
-    </a>
+        <div class="card-form">
 
-    <br><br>
+            <h1>Editar Usuário</h1>
 
-    <form action="/admin/usuario/atualizar" method="post">
+            <form
+                class="form-usuario"
+                action="/admin/usuario/atualizar"
+                method="post">
 
-        <input type="hidden"
-               name="id"
-               th:value="${usuario.id}">
+                <input
+                    type="hidden"
+                    name="id"
+                    th:value="${usuario.id}">
 
-        <label>Nome</label>
-        <input type="text"
-               name="nome"
-               th:value="${usuario.nome}">
+                <div class="campo">
 
-        <br><br>
+                    <label>Nome</label>
 
-        <label>Email</label>
-        <input type="email"
-               name="email"
-               th:value="${usuario.email}">
+                    <input
+                        type="text"
+                        name="nome"
+                        th:value="${usuario.nome}">
 
-        <br><br>
+                </div>
 
-        <label>Telefone</label>
-        <input type="text"
-               name="telefone"
-               th:value="${usuario.telefone}">
+                <div class="campo">
 
-        <br><br>
+                    <label>Email</label>
 
-        <label>Senha</label>
-        <input type="text"
-               name="senha"
-               th:value="${usuario.senha}">
+                    <input
+                        type="email"
+                        name="email"
+                        th:value="${usuario.email}">
 
-        <br><br>
+                </div>
 
-        <label>Perfil</label>
+                <div class="campo">
 
-        <select name="perfil">
+                    <label>Telefone</label>
 
-            <option value="CLIENTE"
-                    th:selected="${usuario.perfil == 'CLIENTE'}">
-                CLIENTE
-            </option>
+                    <input
+                        type="text"
+                        name="telefone"
+                        th:value="${usuario.telefone}">
 
-            <option value="ADMIN"
-                    th:selected="${usuario.perfil == 'ADMIN'}">
-                ADMIN
-            </option>
+                </div>
 
-        </select>
+                <div class="campo">
 
-        <br><br>
+                    <label>Senha</label>
 
-        <button type="submit">
-            Salvar Alterações
-        </button>
+                    <input
+                        type="text"
+                        name="senha"
+                        th:value="${usuario.senha}">
 
-    </form>
+                </div>
+
+                <div class="campo">
+
+                    <label>Perfil</label>
+
+                    <select name="perfil">
+
+                        <option
+                            value="CLIENTE"
+                            th:selected="${usuario.perfil == 'CLIENTE'}">
+
+                            CLIENTE
+
+                        </option>
+
+                        <option
+                            value="ADMIN"
+                            th:selected="${usuario.perfil == 'ADMIN'}">
+
+                            ADMIN
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <button
+                    class="btn-atualizar"
+                    type="submit">
+
+                    Salvar Alterações
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
 
 </body>
 </html>

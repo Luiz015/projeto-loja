@@ -6,54 +6,72 @@
 </head>
 <body>
 
-    <h1>Gerenciar Usuários</h1>
+    <div class="container-usuarios">
 
-    <a href="/admin">
-        Voltar ao Painel
-    </a>
+        <div class="topo-usuarios">
 
-    <br><br>
+            <h1>
+                Gerenciar Usuários
+            </h1>
 
-    <table border="1">
+            <a
+                class="btn-voltar"
+                href="/admin">
 
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Telefone</th>
-            <th>Perfil</th>
-            <th>Ações</th>
-        </tr>
+                Voltar ao Painel
 
-        <tr th:each="usuario : ${lista}">
+            </a>
 
-            <td th:text="${usuario.id}"></td>
+        </div>
 
-            <td th:text="${usuario.nome}"></td>
+        <div class="tabela-container">
 
-            <td th:text="${usuario.email}"></td>
+            <table class="tabela-usuarios">
 
-            <td th:text="${usuario.telefone}"></td>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th>Perfil</th>
+                    <th>Ações</th>
+                </tr>
 
-            <td th:text="${usuario.perfil}"></td>
+                <tr th:each="usuario : ${lista}">
 
-            <td>
+                    <td th:text="${usuario.id}"></td>
+                    <td th:text="${usuario.nome}"></td>
+                    <td th:text="${usuario.email}"></td>
+                    <td th:text="${usuario.telefone}"></td>
+                    <td th:text="${usuario.perfil}"></td>
 
-                <a th:href="@{'/admin/usuario/editar/' + ${usuario.id}}">
-                    Editar
-                </a>
+                    <td>
 
-                |
+                        <a
+                            class="btn-editar"
+                            th:href="@{'/admin/usuario/editar/' + ${usuario.id}}">
 
-                <a th:href="@{'/admin/usuario/excluir/' + ${usuario.id}}">
-                    Excluir
-                </a>
+                            Editar
 
-            </td>
+                        </a>
 
-        </tr>
+                        <a
+                            class="btn-excluir"
+                            th:href="@{'/admin/usuario/excluir/' + ${usuario.id}}">
 
-    </table>
+                            Excluir
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
 
 </body>
 </html>

@@ -6,52 +6,121 @@
 </head>
 <body>
 
-    <header>
+    <div class="container">
 
-        <h1>Loja Makeup</h1>
+        <header class="cabecalho">
 
-        <form action="/buscar" method="get">
-            <input
-                type="text"
-                name="titulo"
-                placeholder="Buscar produto">
+            <div class="logo">
 
-            <button type="submit">
-                Buscar
-            </button>
-        </form>
+                <h1>Loja Makeup</h1>
 
-        <a href="/login">Login</a>
-        <a href="/cadastro">Cadastro</a>
+            </div>
 
-    </header>
+            <div class="barra-busca">
 
-    <main>
+                <form
+                    class="form-busca"
+                    action="/buscar"
+                    method="get">
 
-        <h2>Produtos</h2>
+                    <input
+                        class="input-busca"
+                        type="text"
+                        name="titulo"
+                        placeholder="Buscar produto">
 
-        <div th:each="produto : ${lista}">
+                    <button
+                        class="btn-busca"
+                        type="submit">
 
-            <img
-                th:src="@{'/img/' + ${produto.img}}"
-                width="200">
+                        Buscar
 
-            <h3 th:text="${produto.titulo}"></h3>
+                    </button>
 
-            <p>
-                R$
-                <span th:text="${produto.preco}"></span>
-            </p>
+                </form>
 
-            <a th:href="@{'/produto/' + ${produto.id}}">
-                Ver detalhes
-            </a>
+            </div>
 
-            <hr>
+            <nav class="menu">
 
-        </div>
+                <a
+                    class="menu-link"
+                    href="/login">
 
-    </main>
+                    Login
+
+                </a>
+
+                <a
+                    class="menu-link"
+                    href="/cadastro">
+
+                    Cadastro
+
+                </a>
+
+            </nav>
+
+        </header>
+
+        <main class="conteudo">
+
+            <div class="titulo-pagina">
+
+                <h2>
+                    Produtos
+                </h2>
+
+            </div>
+
+            <div class="lista-produtos">
+
+                <div
+                    class="card-produto"
+                    th:each="produto : ${lista}">
+
+                    <div class="produto-imagem">
+
+                        <img
+                            th:src="@{'/img/' + ${produto.img}}"
+                            alt="Produto"
+                            width="200">
+
+                    </div>
+
+                    <div class="produto-info">
+
+                        <h3
+                            class="produto-titulo"
+                            th:text="${produto.titulo}">
+                        </h3>
+
+                        <p class="produto-preco">
+
+                            R$
+                            <span
+                                th:text="${produto.preco}">
+                            </span>
+
+                        </p>
+
+                        <a
+                            class="btn-detalhes"
+                            th:href="@{'/produto/' + ${produto.id}}">
+
+                            Ver Detalhes
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
 
 </body>
 </html>
