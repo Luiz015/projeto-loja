@@ -1,9 +1,12 @@
 package com.ifsp.projetoLojaMakeup.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -57,8 +60,52 @@ public class UsuarioController {
         sessao.setAttribute("usuario", usuarioBanco);
 
         if (usuarioBanco.getPerfil().equals("ADMIN")) {
-            return "redirect:/admin/pr";
+            return "redirect:/admin";
         }
         return "redirect:/";
+    }
+
+    @GetMapping("/admin")
+    public String admin(HttpSession sessao){
+        Usuario usuario =(Usuario) sessao.getAttribute("usuario");
+        if (usuario==null) {
+            return "redirect:/login";
+        }
+        if (!usuario.getPerfil().equals("ADMIN")) {
+            return "redirect:/";
+        }
+        return "admin/admin";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession sessao){
+        sessao.invalidate();
+        return "redirect:/login";
+    }
+
+    @GetMapping("/admin/usuarios")
+    public String listarUsuarios(Model model){
+        List<Usuario> listaUsuarios = usuarioService.listarTodos();
+        model.addAttribute("lista",listaUsuarios);
+        return "admin/listarUsuarios";
+    }
+
+    @GetMapping("/admin/usuario/editar/{id}")
+    public String editarUsuarios(@PathVariable Long id, Model model){
+        Usuario usuario = usuarioService.buscarPorId(id);
+        model.addAttribute("usuario", usuario);
+        return "admin/editarUsuario";
+    }
+
+    @PostMapping("/admin/usuario/atualizar")
+    public String atualizarUsuario(Usuario usuario){
+        usuarioService.atualizar(usuario);
+        return "redirect:admin/usuarios";
+    }
+
+    @GetMapping("/admin/usuario/excluir/{id}")
+    public String excluirUsuario(@PathVariable Long id){
+        usuarioService.deletar(id);
+        return "redirct:admin/usuarios";
     }
 }

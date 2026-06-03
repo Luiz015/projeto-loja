@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Usuário</title>
+</head>
+<body>
+
+    <h1>Editar Usuário</h1>
+
+    <a href="/admin/usuarios">
+        Voltar
+    </a>
+
+    <br><br>
+
+    <form action="/admin/usuario/atualizar" method="post">
+
+        <input type="hidden"
+               name="id"
+               th:value="${usuario.id}">
+
+        <label>Nome</label>
+        <input type="text"
+               name="nome"
+               th:value="${usuario.nome}">
+
+        <br><br>
+
+        <label>Email</label>
+        <input type="email"
+               name="email"
+               th:value="${usuario.email}">
+
+        <br><br>
+
+        <label>Telefone</label>
+        <input type="text"
+               name="telefone"
+               th:value="${usuario.telefone}">
+
+        <br><br>
+
+        <label>Senha</label>
+        <input type="text"
+               name="senha"
+               th:value="${usuario.senha}">
+
+        <br><br>
+
+        <label>Perfil</label>
+
+        <select name="perfil">
+
+            <option value="CLIENTE"
+                    th:selected="${usuario.perfil == 'CLIENTE'}">
+                CLIENTE
+            </option>
+
+            <option value="ADMIN"
+                    th:selected="${usuario.perfil == 'ADMIN'}">
+                ADMIN
+            </option>
+
+        </select>
+
+        <br><br>
+
+        <button type="submit">
+            Salvar Alterações
+        </button>
+
+    </form>
+
+</body>
+</html>
