@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Cadastrar Produto</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
@@ -24,7 +26,8 @@
 
                     <input
                         type="text"
-                        name="titulo">
+                        name="titulo"
+                        required>
 
                 </div>
 
@@ -33,7 +36,8 @@
                     <label>Descrição</label>
 
                     <textarea
-                        name="descricao">
+                        name="descricao"
+                        required>
                     </textarea>
 
                 </div>
@@ -45,7 +49,9 @@
                     <input
                         type="number"
                         step="0.01"
-                        name="preco">
+                        min="0"
+                        name="preco"
+                        required>
 
                 </div>
 
@@ -55,7 +61,8 @@
 
                     <input
                         type="text"
-                        name="img">
+                        name="img"
+                        required>
 
                 </div>
 
@@ -68,6 +75,16 @@
                 </button>
 
             </form>
+
+            <br>
+
+            <a
+                class="btn-cancelar"
+                href="/admin/produtos">
+
+                Cancelar
+
+            </a>
 
         </div>
 

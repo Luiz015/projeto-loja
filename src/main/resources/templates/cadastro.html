@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastro</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
@@ -19,22 +20,23 @@
 
                 <div class="campo">
                     <label>Nome</label>
-                    <input type="text" name="nome">
+                    <input type="text" name="nome" required>
+
                 </div>
 
                 <div class="campo">
                     <label>Email</label>
-                    <input type="email" name="email">
+                    <input type="email" name="email" required>
                 </div>
 
                 <div class="campo">
                     <label>Telefone</label>
-                    <input type="text" name="telefone">
+                    <input type="text" name="telefone" required>
                 </div>
 
                 <div class="campo">
                     <label>Senha</label>
-                    <input type="password" name="senha">
+                    <input type="password" name="senha" required>
                 </div>
 
                 <div class="mensagem-erro">

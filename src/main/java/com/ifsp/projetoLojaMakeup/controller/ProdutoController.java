@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.ifsp.projetoLojaMakeup.model.Produto;
+import com.ifsp.projetoLojaMakeup.model.Usuario;
 import com.ifsp.projetoLojaMakeup.service.ProdutoService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class ProdutoController {
@@ -26,6 +29,18 @@ public class ProdutoController {
         return "produtos";
     }
 
+    @GetMapping("/admin/produtos")
+    public String listarProdutosAdmin(Model model, HttpSession sessao){
+        if(usuarioNaoEhAdmin(sessao)){
+            return "redirect:/";
+        }
+
+        List<Produto> listaProdutos = produtoService.listarTodos();
+
+        model.addAttribute("lista", listaProdutos);
+
+        return "admin/listarProdutos";
+    }
     @GetMapping("/produto/{id}")
     public String detalhesProduto(Model model, @PathVariable Long id){
         Produto produto = produtoService.buscarPorId(id);
@@ -36,47 +51,77 @@ public class ProdutoController {
     }
 
     @GetMapping("/admin/produto/novo")
-    public String cadastrarProduto(){
-        return "cadastrarProduto";
+    public String cadastrarProduto(HttpSession sessao){
+        if(usuarioNaoEhAdmin(sessao)){
+            return "redirect:/";
+        }
+        return "admin/cadastrarProduto";
     }
 
     @PostMapping("/admin/produto/salvar")
-    public String salvarProduto(Produto produto){
+    public String salvarProduto(Produto produto, HttpSession sessao){
+        if(usuarioNaoEhAdmin(sessao)){
+            return "redirect:/";
+        }
         produtoService.salvarProduto(produto);
-        return "redirect:/produtos";
+        return "redirect:/admin/produtos";
     }
 
     @GetMapping("/admin/produto/editar/{id}")
-    public String editarProduto(Model model, @PathVariable Long id){
+    public String editarProduto(Model model, @PathVariable Long id, HttpSession sessao){
+        if(usuarioNaoEhAdmin(sessao)){
+            return "redirect:/";
+        }
         Produto produto = produtoService.buscarPorId(id);
 
         model.addAttribute("produto", produto);
 
-        return "editarProduto";
+        return "admin/editarProduto";
     }
 
     @PostMapping("/admin/produto/atualizar")
-    public String atualizarProduto(Produto produto){
+    public String atualizarProduto(Produto produto, HttpSession sessao){
+        if(usuarioNaoEhAdmin(sessao)){
+            return "redirect:/";
+        }
         produtoService.atualizar(produto);
 
-        return "redirect:/produtos";
+        return "redirect:/admin/produtos";
     }
 
     @GetMapping("/admin/produto/excluir/{id}")
-    public String excluitProduto(@PathVariable Long id){
+    public String excluitProduto(@PathVariable Long id, HttpSession sessao){
+        if(usuarioNaoEhAdmin(sessao)){
+            return "redirect:/";
+        }
         produtoService.deletar(id);
 
-        return "redirect:/produtos";
+        return "redirect:/admin/produtos";
     }
 
     @GetMapping("/buscar")
-    public String buscarProduto(String titulo, Model model){
+    public String buscarProduto(String titulo,
+                            Model model,
+                            HttpSession sessao){
 
-        List<Produto> listaProdutos = produtoService.buscarPorTitulo(titulo);
+        Usuario usuario = (Usuario) sessao.getAttribute("usuario");
+        model.addAttribute("usuario", usuario);
+        List<Produto> listaProdutos =
+                produtoService.buscarPorTitulo(titulo);
 
         model.addAttribute("lista", listaProdutos);
 
         return "produtos";
+    }
+
+    private boolean usuarioNaoEhAdmin(HttpSession sessao){
+
+        Usuario usuario = (Usuario) sessao.getAttribute("usuario");
+        if(usuario == null){
+            return true;
+        }
+
+        return !usuario.getPerfil().equals("ADMIN");
     }
 
 }

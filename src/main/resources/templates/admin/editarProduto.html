@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Editar Produto</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
@@ -29,7 +30,8 @@
                     <input
                         type="text"
                         name="titulo"
-                        th:value="${produto.titulo}">
+                        th:value="${produto.titulo}"
+                        required>
 
                 </div>
 
@@ -39,6 +41,7 @@
 
                     <textarea
                         name="descricao"
+                        required
                         th:text="${produto.descricao}">
                     </textarea>
 
@@ -51,8 +54,10 @@
                     <input
                         type="number"
                         step="0.01"
+                        min="0"
                         name="preco"
-                        th:value="${produto.preco}">
+                        th:value="${produto.preco}"
+                        required>
 
                 </div>
 
@@ -63,7 +68,8 @@
                     <input
                         type="text"
                         name="img"
-                        th:value="${produto.img}">
+                        th:value="${produto.img}"
+                        required>
 
                 </div>
 
@@ -76,6 +82,16 @@
                 </button>
 
             </form>
+
+            <br>
+
+            <a
+                class="btn-cancelar"
+                href="/admin/produtos">
+
+                Cancelar
+
+            </a>
 
         </div>
 

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Editar Usuário</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
@@ -29,7 +30,8 @@
                     <input
                         type="text"
                         name="nome"
-                        th:value="${usuario.nome}">
+                        th:value="${usuario.nome}"
+                        required>
 
                 </div>
 
@@ -40,7 +42,8 @@
                     <input
                         type="email"
                         name="email"
-                        th:value="${usuario.email}">
+                        th:value="${usuario.email}"
+                        required>
 
                 </div>
 
@@ -51,7 +54,8 @@
                     <input
                         type="text"
                         name="telefone"
-                        th:value="${usuario.telefone}">
+                        th:value="${usuario.telefone}"
+                        required>
 
                 </div>
 
@@ -62,7 +66,8 @@
                     <input
                         type="text"
                         name="senha"
-                        th:value="${usuario.senha}">
+                        th:value="${usuario.senha}"
+                        required>
 
                 </div>
 
@@ -101,6 +106,16 @@
                 </button>
 
             </form>
+
+            <br>
+
+            <a
+                class="btn-cancelar"
+                href="/admin/usuarios">
+
+                Cancelar
+
+            </a>
 
         </div>
 

@@ -76,11 +76,15 @@ public class UsuarioRepository {
 
     @Transactional
     public Usuario findByEmail(String email){
+
         String sql = "SELECT * FROM usuarios WHERE email = :email";
         Query query = em.createNativeQuery(sql, Usuario.class);
         query.setParameter("email", email);
+        List<Usuario> lista = query.getResultList();
 
-        Usuario usuario = (Usuario) query.getSingleResult();
-        return usuario;
+        if(lista.isEmpty()){
+            return null;
+        }
+        return lista.get(0);
     }
 }

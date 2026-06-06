@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Loja Makeup</title>
+    <title>Resultados da Busca</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
@@ -44,8 +44,6 @@
 
             <nav class="menu">
 
-                <!-- Usuário não logado -->
-
                 <div th:if="${usuario == null}">
 
                     <a
@@ -65,8 +63,6 @@
                     </a>
 
                 </div>
-
-                <!-- Usuário logado -->
 
                 <div th:if="${usuario != null}">
 
@@ -106,9 +102,21 @@
 
                 <h2>
 
-                    Produtos
+                    Resultados da Busca
 
                 </h2>
+
+            </div>
+
+            <div
+                class="sem-resultados"
+                th:if="${#lists.isEmpty(lista)}">
+
+                <p>
+
+                    Nenhum produto encontrado.
+
+                </p>
 
             </div>
 

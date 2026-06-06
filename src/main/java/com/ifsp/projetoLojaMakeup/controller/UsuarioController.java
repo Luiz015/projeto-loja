@@ -44,24 +44,27 @@ public class UsuarioController {
 
     //parte de login
     @PostMapping("/login")
-    public String login(@RequestParam String senha,@RequestParam String email,HttpSession sessao, Model model){
+    public String login(@RequestParam String senha,
+                    @RequestParam String email,
+                    HttpSession sessao,
+                    Model model){
+
         Usuario usuarioBanco = usuarioService.buscarPorEmail(email);
-        if (usuarioBanco==null) {
+
+        if(usuarioBanco == null){
             msg = "Usuário não cadastrado";
             model.addAttribute("msgErro", msg);
             return "login";
         }
 
-        if (!usuarioBanco.getSenha().equals(senha)) {
+        if(!usuarioBanco.getSenha().equals(senha)){
             msg = "Senha incorreta";
             model.addAttribute("msgErro", msg);
             return "login";
         }
+
         sessao.setAttribute("usuario", usuarioBanco);
 
-        if (usuarioBanco.getPerfil().equals("ADMIN")) {
-            return "redirect:/admin";
-        }
         return "redirect:/";
     }
 
@@ -80,32 +83,54 @@ public class UsuarioController {
     @GetMapping("/logout")
     public String logout(HttpSession sessao){
         sessao.invalidate();
-        return "redirect:/login";
+        return "redirect:/";
     }
 
     @GetMapping("/admin/usuarios")
-    public String listarUsuarios(Model model){
+    public String listarUsuarios(Model model,HttpSession sessao){
+        if(usuarioNaoEhAdmin(sessao)){
+            return "redirect:/";
+        }
         List<Usuario> listaUsuarios = usuarioService.listarTodos();
         model.addAttribute("lista",listaUsuarios);
         return "admin/listarUsuarios";
     }
 
     @GetMapping("/admin/usuario/editar/{id}")
-    public String editarUsuarios(@PathVariable Long id, Model model){
+    public String editarUsuarios(@PathVariable Long id, Model model,HttpSession sessao){
+        if(usuarioNaoEhAdmin(sessao)){
+            return "redirect:/";
+        }
         Usuario usuario = usuarioService.buscarPorId(id);
         model.addAttribute("usuario", usuario);
         return "admin/editarUsuario";
     }
 
     @PostMapping("/admin/usuario/atualizar")
-    public String atualizarUsuario(Usuario usuario){
+    public String atualizarUsuario(Usuario usuario, HttpSession sessao){
+        if(usuarioNaoEhAdmin(sessao)){
+            return "redirect:/";
+        }
         usuarioService.atualizar(usuario);
-        return "redirect:admin/usuarios";
+        return "redirect:/admin/usuarios";
     }
 
     @GetMapping("/admin/usuario/excluir/{id}")
-    public String excluirUsuario(@PathVariable Long id){
+    public String excluirUsuario(@PathVariable Long id, HttpSession sessao){
+        if(usuarioNaoEhAdmin(sessao)){
+            return "redirect:/";
+        }
         usuarioService.deletar(id);
-        return "redirct:admin/usuarios";
+        return "redirect:/admin/usuarios";
+    }
+
+    private boolean usuarioNaoEhAdmin(HttpSession sessao){
+
+        Usuario usuario = (Usuario) sessao.getAttribute("usuario");
+        if(usuario == null){
+            return true;
+        }
+
+        return !usuario.getPerfil().equals("ADMIN");
     }
 }

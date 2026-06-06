@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Gerenciar Usuários</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
@@ -57,7 +58,8 @@
 
                         <a
                             class="btn-excluir"
-                            th:href="@{'/admin/usuario/excluir/' + ${usuario.id}}">
+                            th:href="@{'/admin/usuario/excluir/' + ${usuario.id}}"
+                            onclick="return confirm('Deseja realmente excluir este usuário?')">
 
                             Excluir
 

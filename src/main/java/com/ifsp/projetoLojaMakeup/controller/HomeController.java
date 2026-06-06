@@ -8,16 +8,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.ifsp.projetoLojaMakeup.model.Produto;
+import com.ifsp.projetoLojaMakeup.model.Usuario;
 import com.ifsp.projetoLojaMakeup.service.ProdutoService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class HomeController {
     @Autowired
     private ProdutoService produtoService;
     @GetMapping("/")
-    public String abrirHome(Model model){
+    public String abrirHome(Model model, HttpSession sessao){
+
+        Usuario usuario = (Usuario) sessao.getAttribute("usuario");
+        model.addAttribute("usuario", usuario);
         List<Produto> listaProdutos = produtoService.listarTodos();
         model.addAttribute("lista", listaProdutos);
+
         return "home";
     }
 
@@ -26,10 +33,7 @@ public class HomeController {
         return "login";
     }
 
-    @GetMapping("/cadastro")
-    public String abrirCadastro(){
-        return "cadastro";
-    }
+    
 /*
     @GetMapping("/buscar")
     public String buscarProduto(String titulo, Model model){

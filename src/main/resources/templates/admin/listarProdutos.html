@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Gerenciar Produtos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
@@ -85,7 +86,8 @@
 
                         <a
                             class="btn-excluir"
-                            th:href="@{'/admin/produto/excluir/' + ${produto.id}}">
+                            th:href="@{'/admin/produto/excluir/' + ${produto.id}}"
+                            onclick="return confirm('Deseja realmente excluir este produto?')">
 
                             Excluir
 
