@@ -18,7 +18,8 @@
             <form
                 class="form-produto"
                 action="/admin/produto/salvar"
-                method="post">
+                method="post"
+                enctype="multipart/form-data">
 
                 <div class="campo">
 
@@ -60,8 +61,9 @@
                     <label>Imagem</label>
 
                     <input
-                        type="text"
-                        name="img"
+                        type="file"
+                        name="arquivo"
+                        accept="image/*"
                         required>
 
                 </div>

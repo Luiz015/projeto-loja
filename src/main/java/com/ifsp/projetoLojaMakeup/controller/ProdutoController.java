@@ -1,5 +1,8 @@
 package com.ifsp.projetoLojaMakeup.controller;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ifsp.projetoLojaMakeup.model.Produto;
 import com.ifsp.projetoLojaMakeup.model.Usuario;
@@ -59,11 +64,30 @@ public class ProdutoController {
     }
 
     @PostMapping("/admin/produto/salvar")
-    public String salvarProduto(Produto produto, HttpSession sessao){
+    public String salvarProduto(Produto produto, HttpSession sessao, @RequestParam("arquivo") MultipartFile arquivo){
         if(usuarioNaoEhAdmin(sessao)){
             return "redirect:/";
         }
+
+        try {
+
+        String nomeArquivo = arquivo.getOriginalFilename();
+
+        Path caminho = Paths.get(
+                "src/main/resources/static/img/"
+                + nomeArquivo);
+
+        Files.write(caminho, arquivo.getBytes());
+
+        produto.setImg(nomeArquivo);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
         produtoService.salvarProduto(produto);
+
         return "redirect:/admin/produtos";
     }
 
